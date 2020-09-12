@@ -268,7 +268,7 @@ const App = () => {
   const id = open ? "simple-popover" : undefined;
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  //test
+
   return (
     <div className={classes.root}>
       <CssBaseline />
