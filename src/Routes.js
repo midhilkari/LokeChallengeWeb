@@ -12,9 +12,9 @@ import ContactUs from "./components/ContactUs";
 
 const Routes = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={window.location.pathname || ""}>
       <Switch>
-        <Route path="/Combos" exact component={App} />
+        <Route path="/" exact component={App} />
         <Route path="/Burgers" exact component={Burgers} />
         <Route path="/SecretMenu" exact component={SecretMenu} />
         <Route path="/Sides" exact component={Sides} />
