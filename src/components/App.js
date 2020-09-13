@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import AppHeader from "./AppBar";
+import Home from "./Home";
 
 //Material UI Components
 import clsx from "clsx";
@@ -54,6 +56,8 @@ import Popover from "@material-ui/core/Popover";
 
 //Icons
 import Booze from "../assets/booze.jpeg";
+import Burger from "../assets/burger.jpeg";
+import Sides from "../assets/sides.png";
 
 //Routing
 import { useHistory } from "react-router-dom";
@@ -76,6 +80,8 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    // minwidth: 0,
+    // flexdirection: "column",
   },
   buttonWidth: {
     justifyContent: "center",
@@ -200,7 +206,7 @@ const App = () => {
 
     if (index === 0) {
       console.log("Combo");
-      history.push("/Combos");
+      history.push("/");
     } else if (index === 1) {
       console.log("Burgers");
       history.push("/Burgers");
@@ -269,9 +275,11 @@ const App = () => {
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  const cards = [1, 2];
   return (
     <div className={classes.root}>
       <CssBaseline />
+      {/* <AppHeader /> */}
       <AppBar
         position="absolute"
         className={clsx(classes.appBar, open && classes.appBarShift)}
@@ -445,21 +453,17 @@ const App = () => {
             <Grid item xs={12} spacing={3}>
               <Paper className={classes.paper}>
                 {/* <Orders /> */}
-                <p>Combos Page Under Development</p>
-                <Grid id="top-row" container spacing={24}>
-                  <Grid item xs={4}>
+                <p>This is Combos Page</p>
+
+                <Grid
+                  id="top-row"
+                  container
+                  spacing={24}
+                  className={classes.root}
+                >
+                  <Grid item lg={4} xs={12}>
                     <Card className={classes.width}>
                       <CardHeader
-                        // avatar={
-                        //   <Avatar aria-label="recipe" className={classes.avatar}>
-                        //     R
-                        //   </Avatar>
-                        // }
-                        // action={
-                        //   <IconButton aria-label="settings">
-                        //     <MoreVertIcon />
-                        //   </IconButton>
-                        // }
                         title="Burger & Beer"
                         subheader="Can't be Better!!!"
                       />
@@ -522,77 +526,16 @@ const App = () => {
                             </DialogActions>
                           </Dialog>
                         </IconButton>
-                        {/* <IconButton aria-label="share">
-                          <ShareIcon />
-                        </IconButton>
-                        <IconButton
-                          className={clsx(classes.expand, {
-                            [classes.expandOpen]: expanded,
-                          })}
-                          onClick={handleExpandClick}
-                          aria-expanded={expanded}
-                          aria-label="show more"
-                        >
-                          <ExpandMoreIcon />
-                        </IconButton> */}
                       </CardActions>
-                      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                      <Typography paragraph>Method:</Typography>
-                      <Typography paragraph>
-                        Heat 1/2 cup of the broth in a pot until simmering, add
-                        saffron and set aside for 10 minutes.
-                      </Typography>
-                      <Typography paragraph>
-                        Heat oil in a (14- to 16-inch) paella pan or a large,
-                        deep skillet over medium-high heat. Add chicken, shrimp
-                        and chorizo, and cook, stirring occasionally until
-                        lightly browned, 6 to 8 minutes. Transfer shrimp to a
-                        large plate and set aside, leaving chicken and chorizo
-                        in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-                        onion, salt and pepper, and cook, stirring often until
-                        thickened and fragrant, about 10 minutes. Add saffron
-                        broth and remaining 4 1/2 cups chicken broth; bring to a
-                        boil.
-                      </Typography>
-                      <Typography paragraph>
-                        Add rice and stir very gently to distribute. Top with
-                        artichokes and peppers, and cook without stirring, until
-                        most of the liquid is absorbed, 15 to 18 minutes. Reduce
-                        heat to medium-low, add reserved shrimp and mussels,
-                        tucking them down into the rice, and cook again without
-                        stirring, until mussels have opened and rice is just
-                        tender, 5 to 7 minutes more. (Discard any mussels that
-                        don’t open.)
-                      </Typography>
-                      <Typography>
-                        Set aside off of the heat to let rest for 10 minutes,
-                        and then serve.
-                      </Typography>
-                    </CardContent>
-                  </Collapse> */}
                     </Card>
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item lg={4} xs={12}>
                     <Card className={classes.width}>
-                      <CardHeader
-                        // avatar={
-                        //   <Avatar aria-label="recipe" className={classes.avatar}>
-                        //     R
-                        //   </Avatar>
-                        // }
-                        // action={
-                        //   <IconButton aria-label="settings">
-                        //     <MoreVertIcon />
-                        //   </IconButton>
-                        // }
-                        title="Just a Burger"
-                        subheader="Eat Now"
-                      />
+                      <CardHeader title="Just a Burger" subheader="Eat Now" />
                       <CardMedia
                         className={classes.media}
-                        image={Booze}
-                        title="Booze"
+                        image={Burger}
+                        title="Burger"
                       />
                       <CardContent>
                         <Typography
@@ -610,84 +553,54 @@ const App = () => {
                             variant="contained"
                             color="primary"
                             className={classes.buttonWidth}
+                            onClick={handleClickOpen}
                           >
                             Add to Cart
                           </Button>
+                          <Dialog
+                            open={dialog}
+                            onClose={handleClose}
+                            aria-labelledby="form-dialog-title"
+                          >
+                            <DialogTitle id="form-dialog-title">
+                              Just Burger for You!!!
+                            </DialogTitle>
+                            <DialogContent>
+                              <DialogContentText>
+                                $20...EXTRA FOR YOU!!!
+                                <br />
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      checked={state.checkedB}
+                                      onChange={handleChange}
+                                      name="checkedB"
+                                      color="primary"
+                                    />
+                                  }
+                                  label="Extra Cheese"
+                                />
+                              </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={handleClose} color="primary">
+                                Cancel
+                              </Button>
+                              <Button onClick={handleCart} color="primary">
+                                Add to Cart
+                              </Button>
+                            </DialogActions>
+                          </Dialog>
                         </IconButton>
-
-                        {/* <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                      })}
-                      onClick={handleExpandClick}
-                      aria-expanded={expanded}
-                      aria-label="show more"
-                    >
-                      <ExpandMoreIcon />
-                    </IconButton> */}
                       </CardActions>
-                      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                      <Typography paragraph>Method:</Typography>
-                      <Typography paragraph>
-                        Heat 1/2 cup of the broth in a pot until simmering, add
-                        saffron and set aside for 10 minutes.
-                      </Typography>
-                      <Typography paragraph>
-                        Heat oil in a (14- to 16-inch) paella pan or a large,
-                        deep skillet over medium-high heat. Add chicken, shrimp
-                        and chorizo, and cook, stirring occasionally until
-                        lightly browned, 6 to 8 minutes. Transfer shrimp to a
-                        large plate and set aside, leaving chicken and chorizo
-                        in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-                        onion, salt and pepper, and cook, stirring often until
-                        thickened and fragrant, about 10 minutes. Add saffron
-                        broth and remaining 4 1/2 cups chicken broth; bring to a
-                        boil.
-                      </Typography>
-                      <Typography paragraph>
-                        Add rice and stir very gently to distribute. Top with
-                        artichokes and peppers, and cook without stirring, until
-                        most of the liquid is absorbed, 15 to 18 minutes. Reduce
-                        heat to medium-low, add reserved shrimp and mussels,
-                        tucking them down into the rice, and cook again without
-                        stirring, until mussels have opened and rice is just
-                        tender, 5 to 7 minutes more. (Discard any mussels that
-                        don’t open.)
-                      </Typography>
-                      <Typography>
-                        Set aside off of the heat to let rest for 10 minutes,
-                        and then serve.
-                      </Typography>
-                    </CardContent>
-                  </Collapse> */}
                     </Card>
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item lg={4} xs={12}>
                     <Card className={classes.width}>
-                      <CardHeader
-                        // avatar={
-                        //   <Avatar aria-label="recipe" className={classes.avatar}>
-                        //     R
-                        //   </Avatar>
-                        // }
-                        // action={
-                        //   <IconButton aria-label="settings">
-                        //     <MoreVertIcon />
-                        //   </IconButton>
-                        // }
-                        title="Just a Burger"
-                        subheader="Eat Now"
-                      />
+                      <CardHeader title="Some Chips" subheader="Eat Now" />
                       <CardMedia
                         className={classes.media}
-                        image={Booze}
+                        image={Sides}
                         title="Booze"
                       />
                       <CardContent>
@@ -705,350 +618,50 @@ const App = () => {
                             variant="contained"
                             color="primary"
                             className={classes.buttonWidth}
+                            onClick={handleClickOpen}
                           >
                             Add to Cart
                           </Button>
+                          <Dialog
+                            open={dialog}
+                            onClose={handleClose}
+                            aria-labelledby="form-dialog-title"
+                          >
+                            <DialogTitle id="form-dialog-title">
+                              Some Chips!!!!
+                            </DialogTitle>
+                            <DialogContent>
+                              <DialogContentText>
+                                $10!!!!
+                                <br />
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      checked={state.checkedB}
+                                      onChange={handleChange}
+                                      name="checkedB"
+                                      color="primary"
+                                    />
+                                  }
+                                  label="Extra Cheese"
+                                />
+                              </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={handleClose} color="primary">
+                                Cancel
+                              </Button>
+                              <Button onClick={handleCart} color="primary">
+                                Add to Cart
+                              </Button>
+                            </DialogActions>
+                          </Dialog>
                         </IconButton>
-                        {/* <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                      })}
-                      onClick={handleExpandClick}
-                      aria-expanded={expanded}
-                      aria-label="show more"
-                    >
-                      <ExpandMoreIcon />
-                    </IconButton> */}
                       </CardActions>
-                      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                      <Typography paragraph>Method:</Typography>
-                      <Typography paragraph>
-                        Heat 1/2 cup of the broth in a pot until simmering, add
-                        saffron and set aside for 10 minutes.
-                      </Typography>
-                      <Typography paragraph>
-                        Heat oil in a (14- to 16-inch) paella pan or a large,
-                        deep skillet over medium-high heat. Add chicken, shrimp
-                        and chorizo, and cook, stirring occasionally until
-                        lightly browned, 6 to 8 minutes. Transfer shrimp to a
-                        large plate and set aside, leaving chicken and chorizo
-                        in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-                        onion, salt and pepper, and cook, stirring often until
-                        thickened and fragrant, about 10 minutes. Add saffron
-                        broth and remaining 4 1/2 cups chicken broth; bring to a
-                        boil.
-                      </Typography>
-                      <Typography paragraph>
-                        Add rice and stir very gently to distribute. Top with
-                        artichokes and peppers, and cook without stirring, until
-                        most of the liquid is absorbed, 15 to 18 minutes. Reduce
-                        heat to medium-low, add reserved shrimp and mussels,
-                        tucking them down into the rice, and cook again without
-                        stirring, until mussels have opened and rice is just
-                        tender, 5 to 7 minutes more. (Discard any mussels that
-                        don’t open.)
-                      </Typography>
-                      <Typography>
-                        Set aside off of the heat to let rest for 10 minutes,
-                        and then serve.
-                      </Typography>
-                    </CardContent>
-                  </Collapse> */}
                     </Card>
                   </Grid>
                 </Grid>
                 <br />
-                <Grid id="bottom-row" container spacing={24}>
-                  <Grid item xs={4}>
-                    <Card className={classes.width}>
-                      <CardHeader
-                        // avatar={
-                        //   <Avatar aria-label="recipe" className={classes.avatar}>
-                        //     R
-                        //   </Avatar>
-                        // }
-                        // action={
-                        //   <IconButton aria-label="settings">
-                        //     <MoreVertIcon />
-                        //   </IconButton>
-                        // }
-                        title="Just a Burger"
-                        subheader="Eat Now"
-                      />
-                      <CardMedia
-                        className={classes.media}
-                        image={Booze}
-                        title="Booze"
-                      />
-                      <CardContent>
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                        >
-                          Building for Loke. bla blab blab blab blab blab lba
-                        </Typography>
-                      </CardContent>
-                      <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.buttonWidth}
-                          >
-                            Add to Cart
-                          </Button>
-                        </IconButton>
-                        {/* <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                      })}
-                      onClick={handleExpandClick}
-                      aria-expanded={expanded}
-                      aria-label="show more"
-                    >
-                      <ExpandMoreIcon />
-                    </IconButton> */}
-                      </CardActions>
-                      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                      <Typography paragraph>Method:</Typography>
-                      <Typography paragraph>
-                        Heat 1/2 cup of the broth in a pot until simmering, add
-                        saffron and set aside for 10 minutes.
-                      </Typography>
-                      <Typography paragraph>
-                        Heat oil in a (14- to 16-inch) paella pan or a large,
-                        deep skillet over medium-high heat. Add chicken, shrimp
-                        and chorizo, and cook, stirring occasionally until
-                        lightly browned, 6 to 8 minutes. Transfer shrimp to a
-                        large plate and set aside, leaving chicken and chorizo
-                        in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-                        onion, salt and pepper, and cook, stirring often until
-                        thickened and fragrant, about 10 minutes. Add saffron
-                        broth and remaining 4 1/2 cups chicken broth; bring to a
-                        boil.
-                      </Typography>
-                      <Typography paragraph>
-                        Add rice and stir very gently to distribute. Top with
-                        artichokes and peppers, and cook without stirring, until
-                        most of the liquid is absorbed, 15 to 18 minutes. Reduce
-                        heat to medium-low, add reserved shrimp and mussels,
-                        tucking them down into the rice, and cook again without
-                        stirring, until mussels have opened and rice is just
-                        tender, 5 to 7 minutes more. (Discard any mussels that
-                        don’t open.)
-                      </Typography>
-                      <Typography>
-                        Set aside off of the heat to let rest for 10 minutes,
-                        and then serve.
-                      </Typography>
-                    </CardContent>
-                  </Collapse> */}
-                    </Card>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Card className={classes.width}>
-                      <CardHeader
-                        // avatar={
-                        //   <Avatar aria-label="recipe" className={classes.avatar}>
-                        //     R
-                        //   </Avatar>
-                        // }
-                        // action={
-                        //   <IconButton aria-label="settings">
-                        //     <MoreVertIcon />
-                        //   </IconButton>
-                        // }
-                        title="Just a Burger"
-                        subheader="Eat Now"
-                      />
-                      <CardMedia
-                        className={classes.media}
-                        image={Booze}
-                        title="Booze"
-                      />
-                      <CardContent>
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                        >
-                          Building for Loke. bla blab blab blab blab blab lba
-                        </Typography>
-                      </CardContent>
-                      <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.buttonWidth}
-                          >
-                            Add to Cart
-                          </Button>
-                        </IconButton>
-                        {/* <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                      })}
-                      onClick={handleExpandClick}
-                      aria-expanded={expanded}
-                      aria-label="show more"
-                    >
-                      <ExpandMoreIcon />
-                    </IconButton> */}
-                      </CardActions>
-                      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                      <Typography paragraph>Method:</Typography>
-                      <Typography paragraph>
-                        Heat 1/2 cup of the broth in a pot until simmering, add
-                        saffron and set aside for 10 minutes.
-                      </Typography>
-                      <Typography paragraph>
-                        Heat oil in a (14- to 16-inch) paella pan or a large,
-                        deep skillet over medium-high heat. Add chicken, shrimp
-                        and chorizo, and cook, stirring occasionally until
-                        lightly browned, 6 to 8 minutes. Transfer shrimp to a
-                        large plate and set aside, leaving chicken and chorizo
-                        in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-                        onion, salt and pepper, and cook, stirring often until
-                        thickened and fragrant, about 10 minutes. Add saffron
-                        broth and remaining 4 1/2 cups chicken broth; bring to a
-                        boil.
-                      </Typography>
-                      <Typography paragraph>
-                        Add rice and stir very gently to distribute. Top with
-                        artichokes and peppers, and cook without stirring, until
-                        most of the liquid is absorbed, 15 to 18 minutes. Reduce
-                        heat to medium-low, add reserved shrimp and mussels,
-                        tucking them down into the rice, and cook again without
-                        stirring, until mussels have opened and rice is just
-                        tender, 5 to 7 minutes more. (Discard any mussels that
-                        don’t open.)
-                      </Typography>
-                      <Typography>
-                        Set aside off of the heat to let rest for 10 minutes,
-                        and then serve.
-                      </Typography>
-                    </CardContent>
-                  </Collapse> */}
-                    </Card>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Card className={classes.width}>
-                      <CardHeader
-                        // avatar={
-                        //   <Avatar aria-label="recipe" className={classes.avatar}>
-                        //     R
-                        //   </Avatar>
-                        // }
-                        // action={
-                        //   <IconButton aria-label="settings">
-                        //     <MoreVertIcon />
-                        //   </IconButton>
-                        // }
-                        title="Just a Burger"
-                        subheader="Eat Now"
-                      />
-                      <CardMedia
-                        className={classes.media}
-                        image={Booze}
-                        title="Booze"
-                      />
-                      <CardContent>
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                        >
-                          Building for Loke. bla blab blab blab blab blab lba
-                        </Typography>
-                      </CardContent>
-                      <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.buttonWidth}
-                          >
-                            Add to Cart
-                          </Button>
-                        </IconButton>
-                        {/* <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                      })}
-                      onClick={handleExpandClick}
-                      aria-expanded={expanded}
-                      aria-label="show more"
-                    >
-                      <ExpandMoreIcon />
-                    </IconButton> */}
-                      </CardActions>
-                      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                      <Typography paragraph>Method:</Typography>
-                      <Typography paragraph>
-                        Heat 1/2 cup of the broth in a pot until simmering, add
-                        saffron and set aside for 10 minutes.
-                      </Typography>
-                      <Typography paragraph>
-                        Heat oil in a (14- to 16-inch) paella pan or a large,
-                        deep skillet over medium-high heat. Add chicken, shrimp
-                        and chorizo, and cook, stirring occasionally until
-                        lightly browned, 6 to 8 minutes. Transfer shrimp to a
-                        large plate and set aside, leaving chicken and chorizo
-                        in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-                        onion, salt and pepper, and cook, stirring often until
-                        thickened and fragrant, about 10 minutes. Add saffron
-                        broth and remaining 4 1/2 cups chicken broth; bring to a
-                        boil.
-                      </Typography>
-                      <Typography paragraph>
-                        Add rice and stir very gently to distribute. Top with
-                        artichokes and peppers, and cook without stirring, until
-                        most of the liquid is absorbed, 15 to 18 minutes. Reduce
-                        heat to medium-low, add reserved shrimp and mussels,
-                        tucking them down into the rice, and cook again without
-                        stirring, until mussels have opened and rice is just
-                        tender, 5 to 7 minutes more. (Discard any mussels that
-                        don’t open.)
-                      </Typography>
-                      <Typography>
-                        Set aside off of the heat to let rest for 10 minutes,
-                        and then serve.
-                      </Typography>
-                    </CardContent>
-                  </Collapse> */}
-                    </Card>
-                  </Grid>
-                </Grid>
               </Paper>
             </Grid>
           </Grid>

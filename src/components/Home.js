@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AppHeader from "./AppBar";
-import Home from "./Home";
-
+import App from "./App";
+import Burgers from "./Burgers";
 //Material UI Components
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -56,8 +56,6 @@ import Popover from "@material-ui/core/Popover";
 
 //Icons
 import Booze from "../assets/booze.jpeg";
-import Burger from "../assets/burger.jpeg";
-import Sides from "../assets/sides.png";
 
 //Routing
 import { useHistory } from "react-router-dom";
@@ -181,8 +179,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const KidsMenu = () => {
-  const [open, setOpen] = React.useState(true);
+const Home = () => {
+  const [open, setOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [expanded, setExpanded] = React.useState(false);
   const [dialog, setDialog] = React.useState(false);
@@ -201,38 +199,38 @@ const KidsMenu = () => {
 
   let history = useHistory();
 
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
+  //   const handleListItemClick = (event, index) => {
+  //     setSelectedIndex(index);
 
-    if (index === 0) {
-      console.log("Combo");
-      history.push("/");
-    } else if (index === 1) {
-      console.log("Burgers");
-      history.push("/Burgers");
-    } else if (index === 2) {
-      console.log("Secret");
-      history.push("/SecretMenu");
-    } else if (index === 3) {
-      console.log("Sides");
-      history.push("/Sides");
-    } else if (index === 4) {
-      console.log("kids");
-      history.push("/KidsMenu");
-    } else if (index === 5) {
-      console.log("drinks");
-      history.push("/Drinks");
-    } else if (index === 6) {
-      console.log("booze");
-      history.push("/Booze");
-    } else if (index === 7) {
-      console.log("retail");
-      history.push("/Retail");
-    } else if (index === 8) {
-      console.log("contact us");
-      history.push("/ContactUs");
-    }
-  };
+  //     if (index === 0) {
+  //       console.log("Combo");
+  //       history.push("/");
+  //     } else if (index === 1) {
+  //       console.log("Burgers");
+  //       history.push("/Burgers");
+  //     } else if (index === 2) {
+  //       console.log("Secret");
+  //       history.push("/SecretMenu");
+  //     } else if (index === 3) {
+  //       console.log("Sides");
+  //       history.push("/Sides");
+  //     } else if (index === 4) {
+  //       console.log("kids");
+  //       history.push("/KidsMenu");
+  //     } else if (index === 5) {
+  //       console.log("drinks");
+  //       history.push("/Drinks");
+  //     } else if (index === 6) {
+  //       console.log("booze");
+  //       history.push("/Booze");
+  //     } else if (index === 7) {
+  //       console.log("retail");
+  //       history.push("/Retail");
+  //     } else if (index === 8) {
+  //       console.log("contact us");
+  //       history.push("/ContactUs");
+  //     }
+  //   };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -257,10 +255,10 @@ const KidsMenu = () => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const handleCart = () => {
+  function handleCart() {
     setCart(cart + 1);
     setDialog(false);
-  };
+  }
 
   const handleCartClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -270,12 +268,24 @@ const KidsMenu = () => {
     setAnchorEl(null);
   };
 
+  const getContent = () => {
+    let pathName = window.location.pathname;
+    let path = pathName.splice(1);
+    console.log(path);
+
+    switch (path) {
+      default:
+      case "":
+        return <App />;
+      case "Burgers":
+        return <Burgers />;
+    }
+  };
   const openPopover = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  const cards = [1, 2];
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -333,7 +343,7 @@ const KidsMenu = () => {
           </Popover>
         </Toolbar>
       </AppBar>
-      <Drawer
+      {/* <Drawer
         variant="permanent"
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
@@ -347,11 +357,9 @@ const KidsMenu = () => {
         </div>
         <Divider />
 
-        {/* <List>{mainListItems}</List> */}
         <ListItem
           button
           selected={selectedIndex === 0}
-          // onClick={loadDashboard}
           onClick={(event) => handleListItemClick(event, 0)}
         >
           <ListItemIcon>
@@ -362,7 +370,6 @@ const KidsMenu = () => {
         <ListItem
           button
           selected={selectedIndex === 1}
-          // onClick={loadSms}
           onClick={(event) => handleListItemClick(event, 1)}
         >
           <ListItemIcon>
@@ -373,7 +380,6 @@ const KidsMenu = () => {
         <ListItem
           button
           selected={selectedIndex === 2}
-          // onClick={loadCustomers}>
           onClick={(event) => handleListItemClick(event, 2)}
         >
           <ListItemIcon>
@@ -391,7 +397,7 @@ const KidsMenu = () => {
           </ListItemIcon>
           <ListItemText primary="Sides" />
         </ListItem>
-        {/* <List>{secondaryListItems}</List> */}
+
         <ListItem
           button
           selected={selectedIndex === 4}
@@ -445,224 +451,243 @@ const KidsMenu = () => {
           </ListItemIcon>
           <ListItemText primary="Contact Us" />
         </ListItem>
-      </Drawer>
-      <main className={classes.content}>
+      </Drawer> */}
+      {getContent}
+      {/* <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12} spacing={3}>
               <Paper className={classes.paper}>
-                {/* <Orders /> */}
-                <p>This is Kids Menu Page</p>
-                {cards.map((card) => (
-                  <Grid
-                    id="top-row"
-                    container
-                    spacing={24}
-                    className={classes.root}
-                  >
-                    <Grid item lg={4} xs={12}>
-                      <Card className={classes.width}>
-                        <CardHeader
-                          title="Burger & Beer"
-                          subheader="Can't be Better!!!"
-                        />
-                        <CardMedia
-                          className={classes.media}
-                          image={Booze}
-                          title="Booze"
-                        />
-                        <CardContent>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
+                <Grid
+                  id="top-row"
+                  container
+                  spacing={24}
+                  className={classes.root}
+                >
+                  <Grid item lg={4} xs={12}>
+                    <Card className={classes.width}>
+                      <CardHeader
+                        title="Burger & Beer"
+                        subheader="Can't be Better!!!"
+                      />
+                      <CardMedia
+                        className={classes.media}
+                        image={Booze}
+                        title="Booze"
+                      />
+                      <CardContent>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          Building for Loke. bla blab blab blab blab blab lba
+                        </Typography>
+                      </CardContent>
+                      <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            className={classes.buttonWidth}
+                            onClick={handleClickOpen}
                           >
-                            Building for Loke. bla blab blab blab blab blab lba
-                          </Typography>
-                        </CardContent>
-                        <CardActions disableSpacing>
-                          <IconButton aria-label="add to favorites">
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              className={classes.buttonWidth}
-                              onClick={handleClickOpen}
-                            >
-                              Add to Cart
-                            </Button>
-                            <Dialog
-                              open={dialog}
-                              onClose={handleClose}
-                              aria-labelledby="form-dialog-title"
-                            >
-                              <DialogTitle id="form-dialog-title">
-                                Burger & Beer
-                              </DialogTitle>
-                              <DialogContent>
-                                <DialogContentText>
-                                  $30...FREE FOR YOU!!!
-                                  <br />
-                                  <FormControlLabel
-                                    control={
-                                      <Checkbox
-                                        checked={state.checkedB}
-                                        onChange={handleChange}
-                                        name="checkedB"
-                                        color="primary"
-                                      />
-                                    }
-                                    label="Extra Cheese"
-                                  />
-                                </DialogContentText>
-                              </DialogContent>
-                              <DialogActions>
-                                <Button onClick={handleClose} color="primary">
-                                  Cancel
-                                </Button>
-                                <Button onClick={handleCart} color="primary">
-                                  Add to Cart
-                                </Button>
-                              </DialogActions>
-                            </Dialog>
-                          </IconButton>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                    <Grid item lg={4} xs={12}>
-                      <Card className={classes.width}>
-                        <CardHeader title="Just a Burger" subheader="Eat Now" />
-                        <CardMedia
-                          className={classes.media}
-                          image={Burger}
-                          title="Burger"
-                        />
-                        <CardContent>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
+                            Add to Cart
+                          </Button>
+                          <Dialog
+                            open={dialog}
+                            onClose={handleClose}
+                            aria-labelledby="form-dialog-title"
                           >
-                            Building for Loke. bla blab blab blab blab blab lba
-                          </Typography>
-                        </CardContent>
-
-                        <CardActions disableSpacing>
-                          <IconButton aria-label="add to favorites">
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              className={classes.buttonWidth}
-                              onClick={handleClickOpen}
-                            >
-                              Add to Cart
-                            </Button>
-                            <Dialog
-                              open={dialog}
-                              onClose={handleClose}
-                              aria-labelledby="form-dialog-title"
-                            >
-                              <DialogTitle id="form-dialog-title">
-                                Just Burger for You!!!
-                              </DialogTitle>
-                              <DialogContent>
-                                <DialogContentText>
-                                  $20...EXTRA FOR YOU!!!
-                                  <br />
-                                  <FormControlLabel
-                                    control={
-                                      <Checkbox
-                                        checked={state.checkedB}
-                                        onChange={handleChange}
-                                        name="checkedB"
-                                        color="primary"
-                                      />
-                                    }
-                                    label="Extra Cheese"
-                                  />
-                                </DialogContentText>
-                              </DialogContent>
-                              <DialogActions>
-                                <Button onClick={handleClose} color="primary">
-                                  Cancel
-                                </Button>
-                                <Button onClick={handleCart} color="primary">
-                                  Add to Cart
-                                </Button>
-                              </DialogActions>
-                            </Dialog>
-                          </IconButton>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                    <Grid item lg={4} xs={12}>
-                      <Card className={classes.width}>
-                        <CardHeader title="Some Chips" subheader="Eat Now" />
-                        <CardMedia
-                          className={classes.media}
-                          image={Sides}
-                          title="Booze"
-                        />
-                        <CardContent>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                          >
-                            Building for Loke. bla blab blab blab blab blab lba
-                          </Typography>
-                        </CardContent>
-                        <CardActions disableSpacing>
-                          <IconButton aria-label="add to favorites">
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              className={classes.buttonWidth}
-                              onClick={handleClickOpen}
-                            >
-                              Add to Cart
-                            </Button>
-                            <Dialog
-                              open={dialog}
-                              onClose={handleClose}
-                              aria-labelledby="form-dialog-title"
-                            >
-                              <DialogTitle id="form-dialog-title">
-                                Some Chips!!!!
-                              </DialogTitle>
-                              <DialogContent>
-                                <DialogContentText>
-                                  $10!!!!
-                                  <br />
-                                  <FormControlLabel
-                                    control={
-                                      <Checkbox
-                                        checked={state.checkedB}
-                                        onChange={handleChange}
-                                        name="checkedB"
-                                        color="primary"
-                                      />
-                                    }
-                                    label="Extra Cheese"
-                                  />
-                                </DialogContentText>
-                              </DialogContent>
-                              <DialogActions>
-                                <Button onClick={handleClose} color="primary">
-                                  Cancel
-                                </Button>
-                                <Button onClick={handleCart} color="primary">
-                                  Add to Cart
-                                </Button>
-                              </DialogActions>
-                            </Dialog>
-                          </IconButton>
-                        </CardActions>
-                      </Card>
-                    </Grid>
+                            <DialogTitle id="form-dialog-title">
+                              Burger & Beer
+                            </DialogTitle>
+                            <DialogContent>
+                              <DialogContentText>
+                                $30...FREE FOR YOU!!!
+                                <br />
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      checked={state.checkedB}
+                                      onChange={handleChange}
+                                      name="checkedB"
+                                      color="primary"
+                                    />
+                                  }
+                                  label="Extra Cheese"
+                                />
+                              </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={handleClose} color="primary">
+                                Cancel
+                              </Button>
+                              <Button onClick={handleCart} color="primary">
+                                Add to Cart
+                              </Button>
+                            </DialogActions>
+                          </Dialog>
+                        </IconButton>
+                      </CardActions>
+                    </Card>
                   </Grid>
-                ))}
+                  <Grid item lg={4} xs={12}>
+                    <Card className={classes.width}>
+                      <CardHeader title="Just a Burger" subheader="Eat Now" />
+                      <CardMedia
+                        className={classes.media}
+                        image={Booze}
+                        title="Booze"
+                      />
+                      <CardContent>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          Building for Loke. bla blab blab blab blab blab lba
+                        </Typography>
+                      </CardContent>
+
+                      <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            className={classes.buttonWidth}
+                          >
+                            Add to Cart
+                          </Button>
+                        </IconButton>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                  <Grid item lg={4} xs={12}>
+                    <Card className={classes.width}>
+                      <CardHeader title="Just a Burger" subheader="Eat Now" />
+                      <CardMedia
+                        className={classes.media}
+                        image={Booze}
+                        title="Booze"
+                      />
+                      <CardContent>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          Building for Loke. bla blab blab blab blab blab lba
+                        </Typography>
+                      </CardContent>
+                      <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            className={classes.buttonWidth}
+                          >
+                            Add to Cart
+                          </Button>
+                        </IconButton>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                </Grid>
                 <br />
+                <Grid id="bottom-row" container spacing={24}>
+                  <Grid item lg={4} xs={12}>
+                    <Card className={classes.width}>
+                      <CardHeader title="Just a Burger" subheader="Eat Now" />
+                      <CardMedia
+                        className={classes.media}
+                        image={Booze}
+                        title="Booze"
+                      />
+                      <CardContent>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          Building for Loke. bla blab blab blab blab blab lba
+                        </Typography>
+                      </CardContent>
+                      <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            className={classes.buttonWidth}
+                          >
+                            Add to Cart
+                          </Button>
+                        </IconButton>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                  <Grid item lg={4} xs={12}>
+                    <Card className={classes.width}>
+                      <CardHeader title="Just a Burger" subheader="Eat Now" />
+                      <CardMedia
+                        className={classes.media}
+                        image={Booze}
+                        title="Booze"
+                      />
+                      <CardContent>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          Building for Loke. bla blab blab blab blab blab lba
+                        </Typography>
+                      </CardContent>
+                      <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            className={classes.buttonWidth}
+                          >
+                            Add to Cart
+                          </Button>
+                        </IconButton>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                  <Grid item lg={4} xs={12}>
+                    <Card className={classes.width}>
+                      <CardHeader title="Just a Burger" subheader="Eat Now" />
+                      <CardMedia
+                        className={classes.media}
+                        image={Booze}
+                        title="Booze"
+                      />
+                      <CardContent>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          Building for Loke. bla blab blab blab blab blab lba
+                        </Typography>
+                      </CardContent>
+                      <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            className={classes.buttonWidth}
+                          >
+                            Add to Cart
+                          </Button>
+                        </IconButton>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                </Grid>
               </Paper>
             </Grid>
           </Grid>
@@ -671,9 +696,9 @@ const KidsMenu = () => {
             <Copyright />
           </Box>
         </Container>
-      </main>
+      </main>*/}
     </div>
   );
 };
 
-export default KidsMenu;
+export default Home;

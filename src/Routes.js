@@ -3,28 +3,27 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import App from "./components/App";
 import Burgers from "./components/Burgers";
 import SecretMenu from "./components/SecretMenu";
-import Sides from "./components/Sides";
+import Side from "./components/Sides";
 import KidsMenu from "./components/KidsMenu";
 import Drinks from "./components/Drinks";
-import Booze from "./components/Booze";
+import BoozeMenu from "./components/Booze";
 import Retail from "./components/Retail";
 import ContactUs from "./components/ContactUs";
+import Home from "./components/Home";
 
 const Routes = () => {
   return (
-    <BrowserRouter basename={window.location.pathname || ""}>
+    <BrowserRouter>
       <Switch>
         <Route path="/" exact component={App} />
         <Route path="/Burgers" exact component={Burgers} />
         <Route path="/SecretMenu" exact component={SecretMenu} />
-        <Route path="/Sides" exact component={Sides} />
+        <Route path="/Sides" exact component={Side} />
         <Route path="/KidsMenu" exact component={KidsMenu} />
         <Route path="/Drinks" exact component={Drinks} />
-        <Route path="/Booze" exact component={Booze} />
+        <Route path="/Booze" exact component={BoozeMenu} />
         <Route path="/Retail" exact component={Retail} />
         <Route path="/ContactUs" exact component={ContactUs} />
-
-        {/* <Route path="/ServiceSeeker" exact component={SeekerLogin} /> */}
       </Switch>
     </BrowserRouter>
   );

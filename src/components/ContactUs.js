@@ -149,7 +149,7 @@ const ContactUs = () => {
 
     if (index === 0) {
       console.log("Combo");
-      history.push("/Combos");
+      history.push("/");
     } else if (index === 1) {
       console.log("Burgers");
       history.push("/Burgers");
@@ -186,6 +186,7 @@ const ContactUs = () => {
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  const cards = [1, 2];
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -342,9 +343,31 @@ const ContactUs = () => {
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 {/* <Orders /> */}
-                <p>cotact us Page Under Development</p>
-                <h1>STAY TUNED!!!!</h1>
-                <DirectionsRunIcon />
+
+                <Container
+                  component="main"
+                  className={classes.main}
+                  maxWidth="sm"
+                >
+                  <Typography variant="h2" component="h1" gutterBottom>
+                    Contact Us
+                  </Typography>
+                  <Typography variant="h5" component="h2" gutterBottom>
+                    {"We are almost ready to serve you the food you LOVE"}
+                    <br />
+                    <br />
+                    {"The best Loyalty Program designed by LOKE for YOU!!."}
+                  </Typography>
+                </Container>
+                <br />
+                <br />
+                <footer className={classes.footer}>
+                  <Container maxWidth="sm">
+                    <Typography variant="body1">
+                      Will reach out to you once the food is COOKED!!!
+                    </Typography>
+                  </Container>
+                </footer>
               </Paper>
             </Grid>
           </Grid>
