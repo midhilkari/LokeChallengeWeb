@@ -461,7 +461,7 @@ const Drinks = () => {
                     spacing={24}
                     className={classes.root}
                   >
-                    <Grid item lg={4} xs={12}>
+                    <Grid item lg={4} md={4} xs={12}>
                       <Card className={classes.width}>
                         <CardHeader
                           title="Burger & Beer"
@@ -529,7 +529,7 @@ const Drinks = () => {
                         </CardActions>
                       </Card>
                     </Grid>
-                    <Grid item lg={4} xs={12}>
+                    <Grid item lg={4} md={4} xs={12}>
                       <Card className={classes.width}>
                         <CardHeader title="Just a Burger" subheader="Eat Now" />
                         <CardMedia
@@ -595,7 +595,7 @@ const Drinks = () => {
                         </CardActions>
                       </Card>
                     </Grid>
-                    <Grid item lg={4} xs={12}>
+                    <Grid item lg={4} md={4} xs={12}>
                       <Card className={classes.width}>
                         <CardHeader title="Some Chips" subheader="Eat Now" />
                         <CardMedia
